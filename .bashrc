@@ -9,8 +9,8 @@ alias ls='ls -FG'
 alias ll='ls -lFG'
 alias lla='ls -alFG'
 alias c='clear'
-alias q='cd $(ghq root)/$(ghq list | peco)'
-alias qq='hub browse $(ghq list | peco | cut -d "/" -f 2,3)'
+alias z='cd $(ghq root)/$(ghq list | peco)'
+alias zz='hub browse $(ghq list | peco | cut -d "/" -f 2,3)'
 
 # save current directory to bookmarks
 touch ~/.sdirs
