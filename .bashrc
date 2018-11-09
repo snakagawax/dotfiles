@@ -7,8 +7,9 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 # aliss
 alias ls='ls -FG'
 alias ll='ls -lFG'
-alias lla='ls -alFG'
+alias la='ls -alFG'
 alias c='clear'
+alias r='rmtrash'
 alias z='cd $(ghq root)/$(ghq list | peco)'
 alias zz='hub browse $(ghq list | peco | cut -d "/" -f 2,3)'
 
