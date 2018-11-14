@@ -48,9 +48,6 @@ function _gcomp {
     return 0
 }
 
-# bind completion command for g to _gcomp
-complete -F _gcomp g
-
 # cut column
 function col {
   awk -v col=$1 '{print $col}'
