@@ -24,3 +24,9 @@ function fish_user_key_bindings
   bind \cg peco_select_ghq_repository
   bind \cr peco_select_history
 end
+
+# bobthefish
+set -g theme_display_git_master_branch yes
+set -g theme_title_display_process yes
+set -g theme_title_display_user yes
+set -g theme_color_scheme dracula
