@@ -4,6 +4,9 @@ PS1="[\[\e[36m\]\u\[\e[0m\]@\[\e[32m\]\h \[\e[33m\]\W\[\e[0m\]]\$ "
 # environment variable
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
+# complete
+complete -C '/usr/local/bin/aws_completer' aws
+
 # aliss
 alias ls='ls -FG'
 alias ll='ls -lFG'
