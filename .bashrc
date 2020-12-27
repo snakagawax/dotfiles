@@ -1,8 +1,15 @@
+# git
+source /usr/local/etc/bash_completion.d/git-prompt.sh
+source /usr/local/etc/bash_completion.d/git-completion.bash
+GIT_PS1_SHOWDIRTYSTATE=true
+
 # prompt
-PS1="[\[\e[36m\]\u\[\e[0m\]@\[\e[32m\]\h \[\e[33m\]\W\[\e[0m\]]\$ "
+PS1="[\[\e[36m\]\u\[\e[0m\]@\[\e[32m\]\h \[\e[33m\]\W\[\e[0m\]]\$(__git_ps1 [%s])\[\033[00m\]\$ "
 
 # environment variable
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+export PATH="/usr/local/opt/gettext/bin:$PATH"
+export SUDO_PROMPT="[sudo] さっさとパスワード入れなさいよ、このバカ！ > "
 
 # complete
 complete -C '/usr/local/bin/aws_completer' aws
@@ -15,43 +22,21 @@ alias c='clear'
 alias r='rmtrash'
 alias z='cd $(ghq root)/$(ghq list | peco)'
 alias zz='hub browse $(ghq list | peco | cut -d "/" -f 2,3)'
+#alias aa='op signin classmethod  --output=raw | op get totp -v "AWS" | pbcopy'
 
-# save current directory to bookmarks
-touch ~/.sdirs
-function s {
-  cat ~/.sdirs | grep -v "export DIR_$1=" > ~/.sdirs1
-  mv ~/.sdirs1 ~/.sdirs
-  echo "export DIR_$1=$PWD" >> ~/.sdirs
+function ghql() {
+  local selected_file=$(ghq list --full-path | peco --query "$LBUFFER")
+  if [ -n "$selected_file" ]; then
+    if [ -t 1 ]; then
+      echo ${selected_file}
+      cd ${selected_file}
+      pwd
+    fi
+  fi
 }
 
-# jump to bookmark
-function g {
-  source ~/.sdirs
-  cd $(eval $(echo echo $(echo \$DIR_$1)))
-}
+bind -x '"\201": ghql'
+bind '"\C-g":"\201\C-m"'
 
-# list bookmarks with dirnam
-function l {
-  source ~/.sdirs
-  env | grep "^DIR_" | cut -c5- | grep "^.*="
-}
-
-# list bookmarks without dirname
-function _l {
-  source ~/.sdirs
-  env | grep "^DIR_" | cut -c5- | grep "^.*=" | cut -f1 -d "="
-}
-
-# completion command for g
-function _gcomp {
-    local curw
-    COMPREPLY=()
-    curw=${COMP_WORDS[COMP_CWORD]}
-    COMPREPLY=($(compgen -W '`_l`' -- $curw))
-    return 0
-}
-
-# cut column
-function col {
-  awk -v col=$1 '{print $col}'
-}
+# direnv setting
+eval "$(direnv hook bash)"
