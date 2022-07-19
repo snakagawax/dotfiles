@@ -1,3 +1,8 @@
+# login
+if status is-interactive
+    eval (/opt/homebrew/bin/brew shellenv)
+end
+
 # environment variable
 set -x KUBECONFIG $KUBECONFIG:~/.kube/config
 set -x PATH /usr/local/bin/ $PATH
@@ -6,7 +11,6 @@ set -x PATH $HOME/bin $PATH
 set -x PATH $HOME/.nodebrew/current/bin $PATH
 set -x HOMEBREW_CASK_OPTS --appdir=/Applications
 set -g fish_user_paths "/usr/local/opt/gettext/bin" $fish_user_paths
-set -x SUDO_PROMPT "[sudo] さっさとパスワード入れなさいよ、このバカ！ >"
 
 # alias
 alias ls='ls -FG'

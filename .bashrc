@@ -1,8 +1,3 @@
-# git
-source /usr/local/etc/bash_completion.d/git-prompt.sh
-source /usr/local/etc/bash_completion.d/git-completion.bash
-GIT_PS1_SHOWDIRTYSTATE=true
-
 # prompt
 PS1="[\[\e[36m\]\u\[\e[0m\]@\[\e[32m\]\h \[\e[33m\]\W\[\e[0m\]]\$(__git_ps1 [%s])\[\033[00m\]\$ "
 
