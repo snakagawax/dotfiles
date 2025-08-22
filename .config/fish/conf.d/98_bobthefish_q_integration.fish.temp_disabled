@@ -1,0 +1,22 @@
+# Bobthefish and Amazon Q integration
+# This file ensures Bobthefish theme works properly with Amazon Q
+
+# First, ensure Bobthefish is loaded
+if not functions -q __bobthefish_glyphs
+    # If Bobthefish functions are not loaded yet, source them
+    for file in ~/.config/fish/functions/__bobthefish*.fish
+        if test -e $file
+            source $file
+        end
+    end
+    
+    # Also source the main fish_prompt from Bobthefish
+    if test -e ~/.config/fish/functions/fish_prompt.fish
+        source ~/.config/fish/functions/fish_prompt.fish
+    end
+end
+
+# Save the Bobthefish prompt function before Amazon Q overwrites it
+if functions -q fish_prompt
+    functions --copy fish_prompt bobthefish_prompt_original
+end
