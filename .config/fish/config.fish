@@ -82,10 +82,8 @@ function upgrade_aws_cli_v2
     echo "New version: $AWSCLIV2VERSION"
 end
 
-# === Fisher Package Manager (check only) ===
-if not functions -q fisher
-    echo "Fisher not installed. Run: curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/install.fish | source && fisher install jorgebucaran/fisher"
-end
+# === Fisher Package Manager (silent check) ===
+# Fisher check removed for faster startup - install manually if needed
 
 # === Key Bindings ===
 function fish_user_key_bindings
@@ -98,9 +96,8 @@ function fish_user_key_bindings
             set --global _fzf_search_vars_command '_fzf_search_variables (set --show | psub) (set --names | psub)'
         end
         
-        # Configure safe fzf bindings - use defaults to avoid errors
-        # Alt+F(directory), Alt+L(git_log), Alt+S(git_status), Ctrl+R(history), Alt+P(processes), Ctrl+V(variables)
-        fzf_configure_bindings 2>/dev/null || echo "fzf bindings failed, continuing..." >&2
+        # Configure fzf bindings (silent errors)
+        fzf_configure_bindings 2>/dev/null || true
     end
     
     # Custom bindings (ghq/peco) - now Ctrl+G is free for ghq
