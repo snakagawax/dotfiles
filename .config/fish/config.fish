@@ -23,9 +23,10 @@ set -gx HOMEBREW_NO_AUTO_UPDATE 1
 set -gx KUBECONFIG $KUBECONFIG:~/.kube/config
 set -gx PYENV_ROOT $HOME/.pyenv
 set -gx VIRTUAL_ENV_DISABLE_PROMPT 1
-set -x GOOGLE_CLOUD_PROJECT (gcloud config get-value project)
+# Google Cloud settings (lazy loaded for performance)
 set -x GOOGLE_CLOUD_LOCATION "us-central1"
 set -x GOOGLE_GENAI_USE_VERTEXAI true
+# GOOGLE_CLOUD_PROJECT will be set on first gcloud use
 
 # === Homebrew (lazy load for interactive) ===
 if status is-interactive
@@ -62,7 +63,11 @@ alias rm='trash'
 alias cursor='/Applications/Cursor.app/Contents//MacOS/Cursor'
 alias chrome="open -a 'Google Chrome'"
 alias sm='bass source ssm-peco.sh'
-alias ccd='claude --dangerously-skip-permissions'
+
+# === Claude Code Alias (fixed output issues) ===
+function ccd -d "Claude Code with clean output"
+    claude --dangerously-skip-permissions $argv 2>/dev/null
+end
 
 # === Custom Functions ===
 
@@ -152,9 +157,29 @@ function aws
     command aws $argv
 end
 
+# Google Cloud CLI - lazy load
+function gcloud
+    # Remove wrapper
+    functions -e gcloud
+    # Set project on first use
+    if not set -q GOOGLE_CLOUD_PROJECT
+        set -gx GOOGLE_CLOUD_PROJECT (command gcloud config get-value project 2>/dev/null)
+    end
+    # Call gcloud
+    command gcloud $argv
+end
+
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 set --export --prepend PATH "/Users/nakagawa.shota/.rd/bin"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/nakagawa.shota/Downloads/google-cloud-sdk/path.fish.inc' ]; . '/Users/nakagawa.shota/Downloads/google-cloud-sdk/path.fish.inc'; end
+# Google Cloud SDK path (lazy load for performance)
+if status is-interactive
+    function __gcloud_path_init --on-event fish_prompt
+        set -l gcloud_path '/Users/nakagawa.shota/Downloads/google-cloud-sdk/path.fish.inc'
+        if test -f "$gcloud_path"
+            source "$gcloud_path"
+        end
+        functions -e __gcloud_path_init
+    end
+end
