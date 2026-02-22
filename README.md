@@ -24,10 +24,12 @@ chsh -s /opt/homebrew/bin/fish
 ## 構成
 
 ```
-.claude/           Claude Code の設定とカスタムコマンド
-.config/fish/      fish shell の設定・プラグイン定義・カスタム関数
-.config/karabiner/ Karabiner-Elements のキーマップ
-bin/               スクリプト（assume-role.fish 等）
+.claude/              Claude Code の設定とカスタムコマンド
+.config/fish/         fish shell の設定・プラグイン定義・カスタム関数
+.config/karabiner/    Karabiner-Elements のキーマップ
+.config/starship.toml Starship プロンプト設定
+.config/Code/User/    VS Code の設定
+bin/                  スクリプト（assume-role.fish 等）
 ```
 
 ## fish プラグイン（fisher 管理）

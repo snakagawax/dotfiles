@@ -1,0 +1,110 @@
+# Starship Configuration - Simple & Clean
+# シンプルな1行プロンプト設定
+
+# シンプルなプロンプト（ディレクトリ + Git + プロンプト文字のみ）
+format = "$directory$git_branch$git_status$character"
+
+# 右側プロンプトを無効化
+right_format = ""
+
+# 改行を無効化（1行プロンプト）
+add_newline = false
+
+# タイムアウト設定
+command_timeout = 500
+scan_timeout = 30
+
+# ディレクトリ表示（シンプル版）
+[directory]
+truncation_length = 3
+truncate_to_repo = true
+format = "[$path]($style) "
+style = "cyan bold"
+home_symbol = "~"
+truncation_symbol = "…/"
+
+# Git ブランチ（シンプル版）
+[git_branch]
+format = "[$symbol$branch]($style) "
+symbol = ""
+style = "purple bold"
+truncation_length = 30
+truncation_symbol = "…"
+
+# Git ステータス（シンプル版）
+[git_status]
+format = "([$all_status$ahead_behind]($style) )"
+style = "red bold"
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+up_to_date = ""
+untracked = "?"
+stashed = "$"
+modified = "!"
+staged = "+"
+renamed = "»"
+deleted = "✘"
+
+# プロンプト文字
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+
+# 以下すべて無効化
+[username]
+disabled = true
+
+[hostname]
+disabled = true
+
+[nodejs]
+disabled = true
+
+[python]
+disabled = true
+
+[rust]
+disabled = true
+
+[golang]
+disabled = true
+
+[java]
+disabled = true
+
+[ruby]
+disabled = true
+
+[docker_context]
+disabled = true
+
+[kubernetes]
+disabled = true
+
+[aws]
+disabled = true
+
+[terraform]
+disabled = true
+
+[cmd_duration]
+disabled = true
+
+[memory_usage]
+disabled = true
+
+[battery]
+disabled = true
+
+[time]
+disabled = true
+
+[shell]
+disabled = true
+
+[status]
+disabled = true
+
+[git_metrics]
+disabled = true

@@ -59,6 +59,15 @@ done
 echo "[karabiner]"
 backup_and_copy "$DOTFILES_DIR/.config/karabiner/karabiner.json" "$HOME/.config/karabiner/karabiner.json"
 
+# starship
+echo "[starship]"
+backup_and_copy "$DOTFILES_DIR/.config/starship.toml" "$HOME/.config/starship.toml"
+
+# VS Code
+echo "[vscode]"
+backup_and_copy "$DOTFILES_DIR/.config/Code/User/settings.json" \
+    "$HOME/Library/Application Support/Code/User/settings.json"
+
 # Claude Code
 echo "[claude]"
 backup_and_copy "$DOTFILES_DIR/.claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md"
